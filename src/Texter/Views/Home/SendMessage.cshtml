@@ -2,18 +2,21 @@
 
 <h2>Send a new message</h2>
 <hr />
+<h5><em>type city name for It's Always {Sunny} in {Philadelphia} text or input "Cat" for cat facts text!</em></h5>
+<h6>Or if you want something really special, type in the name of America's greatest actor.  Here's a hint: it rhymes with "still hurry"</h6>
+<h4>or <span id="chuck"><strong><em>CHUCK NORRIS</em></strong></span></h4>
 @using (Html.BeginForm())
 {
     @Html.LabelFor(model => model.To)
-    @Html.TextBoxFor(model => model.To, new { id = "recipient" })
-    @Html.LabelFor(model => model.From)
-    @Html.TextBoxFor(model => model.From)
-    @Html.LabelFor(model => model.Body)
+    @Html.TextBoxFor(model => model.To, new { id = "recipient" } )
+    @Html.LabelFor(model => model.Body, "City")
     @Html.TextBoxFor(model => model.Body)
     <input type="submit" value="Send!" />
 }
 
-<div class="hidden" id="dropdownMenu">TESTING</div>
+<div class="hidden" id="dropdownMenu">
+    TESTING
+</div>
 
 @Html.ActionLink("Back home", "Index")
 

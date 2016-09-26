@@ -9,8 +9,20 @@
 @Html.ActionLink("Send a new message", "SendMessage")
 
 <script>
-    if ("@ViewData.ContainsKey("NumberSentTo")" !== "False") {
-        console.log("@ViewData["NumberSentTo"]");
+    setTimeout(contactPrompt, 3000);
+    function contactPrompt() {
+        if ("@ViewData.ContainsKey("NumberSentTo")" !== "False") {
+            var number = "@ViewData["NumberSentTo"]";
+            number = number.substring(6,number.length);
+            var contacts = JSON.parse(localStorage.getItem("contacts"));
+            if (!contacts[number]) {
+                var contactName = prompt("Enter a name to save your contact");
+                if(contactName) {
+                    contacts[number] = contactName;
+                    localStorage.setItem("contacts", JSON.stringify(contacts));
+                }
+            }
+        }
     }
 </script>
 
