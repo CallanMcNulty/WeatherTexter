@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Texter.Models;
 
 namespace Texter.Controllers
 {
@@ -13,23 +14,30 @@ namespace Texter.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult GetMessages()
         {
-            ViewData["Message"] = "Your application description page.";
+            var allMessages = Message.GetMessages();
+            return View(allMessages);
+        }
 
+        public IActionResult SendMessage()
+        {
             return View();
         }
 
-        public IActionResult Contact()
+        [HttpPost]
+        public IActionResult SendMessage(Message newMessage)
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            newMessage.Body = "It's always "+GetWeather(newMessage.Body)+ " in " + newMessage.Body;
+            ViewData["NumberSentTo"] = newMessage.To;
+            newMessage.Send();
+            return View("Index");
         }
 
-        public IActionResult Error()
+        public string GetWeather(string City)
         {
-            return View();
+            string weatherData = Weather.GetCityWeather(City);
+            return weatherData;
         }
     }
 }
